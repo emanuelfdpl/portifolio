@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portifólio</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.cabecalho__menu');
+    
+    menuToggle.addEventListener('click', function () {
+    menu.classList.toggle('show-menu');
+    });
+    });
+    
+    </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+const NOME_1 = "Eemanuel";
+const NOME_2 = "Lima";
+const INTERVALO_DIGITACAO = 100;
+const INTERVALO_CURSOR = 500;
+const ATRASO_DIGITACAO = 100;
+const ATRASO_APAGAR = 7000;
+const ATRASO_PROXIMA_ITERACAO = 3000;
+
+const nomeSpan1 = document.getElementById('nomeDigitado1');
+const nomeSpan2 = document.getElementById('nomeDigitado2');
+const cursorSpan = document.getElementById('cursor');
+
+function digitarNome(nome, span) {
+    return new Promise(resolve => {
+        let index = 0;
+        const intervaloDigitar = setInterval(function () {
+            if (index < nome.length) {
+                span.textContent += nome.charAt(index);
+                index++;
+            } else {
+                clearInterval(intervaloDigitar);
+                resolve();
+            }
+        }, INTERVALO_DIGITACAO);
+    });
+}
+
+function apagarNome(span) {
+    return new Promise(resolve => {
+        let index = span.textContent.length - 1;
+        const intervaloApagar = setInterval(function () {
+            if (index >= 0) {
+                span.textContent = span.textContent.slice(0, index);
+                index--;
+            } else {
+                clearInterval(intervaloApagar);
+                resolve();
+            }
+        }, INTERVALO_DIGITACAO);
+    });
+}
+
+function pausar(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function piscarCursor() {
+    cursorSpan.style.visibility = (cursorSpan.style.visibility === 'visible') ? 'hidden' : 'visible';
+}
+
+async function iniciarDigitacao() {
+    await pausar(ATRASO_DIGITACAO);
+    while (true) {
+        await digitarNome(NOME_1, nomeSpan1);
+        await digitarNome(NOME_2, nomeSpan2);
+        await pausar(ATRASO_APAGAR);
+        await apagarNome(nomeSpan2);
+        await apagarNome(nomeSpan1);
+        await pausar(ATRASO_PROXIMA_ITERACAO);
+    }
+}
+
+setInterval(piscarCursor, INTERVALO_CURSOR);
+iniciarDigitacao();
+});
+</script>
+
+<style>
+
+.apresentacao__imagem {
+transition: transform 0.5s ease;
+}
+</style>
+
+<body>
+    <header class="cabecalho">
+        <nav class="cabecalho__menu">
+            <a class="cabecalho__menu__link menu-link" href="index.html">Home</a>
+            <a class="cabecalho__menu__link menu-link" href="about.html">Sobre mim</a>
+            <a class="cabecalho__menu__link menu-link" href="skills.html">Minhas habilidades</a>
+            <a class="cabecalho__menu__link menu-link" href="contact.html">Contato</a>
+        </nav>
+
+        <button class="menu-toggle" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            </button>
+
+    </header>
+
+    <script>
+        function handleMenuAnimation() {
+            const menuLinks = document.querySelectorAll('.menu-link');
+
+            function changeColorOnMouseOver(event) {
+                event.target.style.color = '#ffffff';
+            }
+
+            function resetColorOnMouseOut(event) {
+                event.target.style.color = ''; 
+            }
+
+            menuLinks.forEach(link => {
+                link.addEventListener('mouseover', changeColorOnMouseOver);
+                link.addEventListener('mouseout', resetColorOnMouseOut);
+            });
+        }
+
+        handleMenuAnimation();
+    </script>
+
+        </header>
+        
+    <main class="apresentacao">
+        <section class="apresentacao__conteudo">
+            
+            <h1 class="apresentacao__conteudo__titulo">
+                <span id="nomeDigitado1" class="apresentacao__conteudo__titulo-um"></span> <strong class="titulo-destaque">
+                    <span id="nomeDigitado2" class="titulo-destaque-um-um"></span>
+                    
+                </strong>
+                
+            </h1>
+            
+            <p class="apresentacao__conteudo__texto">Hey criativos! Eu sou o Emanuel, e sejam muito bem vindos ao meu cantinho. <strong class="titulo-destaque-um"> Clique em > Sobre mim < </p>
+            <div class="apresentacao__links">
+            </strong></h1>
+                <h2 class="apresentacao__links__subtitulo">Acesse minhas redes:</h2>
+                <a class="apresentacao__links__navegacao" href="https://github.com/senhorincrivel">
+                    <img class="imgt" src="assets/git.png">
+                    Github
+                </a>
+                <a class="apresentacao__links__navegacao" href="https://www.linkedin.com/in/emanuel-lima-868b5a234/">
+                    <img class="imgt" src="assets/linke.png">
+                    linkedin
+                </a>
+
+                <a class="apresentacao__links__navegacao" href="https://www.instagram.com/emanuelfdpl/">
+                    <img class="imgt" src="assets/instagram.png">
+                    Instagram
+                </a>
+
+                
+            </div>
+        </section>
+        <img id="imagemRastreavel" class="apresentacao__imagem__home" src="./assets/imagemhome.png" alt="foto um">
+    </main>
+    <footer class="rodape">
+        <div class="imagens">
+            <img src="assets/logorodalado.png" alt="Logo da Empresa" class="rodape__logo">
+            <img src="assets/logorodameio.png" alt="Outra Imagem" class="rodape__logo">
+        </div>
+        <div class="texto">
+            <p>Desenvolvido por Emanuel Lima.</p>
+        </div>
+    </footer>
+</body>
+
+<script>
+    const imagemRastreavel = document.getElementById('imagemRastreavel');
+    document.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const { left, top, width, height } = imagemRastreavel.getBoundingClientRect();
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+        const deltaX = centerX - clientX;
+        const deltaY = centerY - clientY;
+        const parallaxAmount = 0.06;
+        const translateX = deltaX * parallaxAmount;
+        const translateY = deltaY * parallaxAmount;
+        const transform = `translate(${translateX}px, ${translateY}px)`;
+        imagemRastreavel.style.transition = 'transform 0.2s ease-out';
+        imagemRastreavel.style.transform = transform;
+    });
+    imagemRastreavel.addEventListener('mouseleave', () => {
+        imagemRastreavel.style.transition = 'transform 0.2s ease-in';
+        imagemRastreavel.style.transform = 'translate(0, 0)';
+    });
+</script>
+
+</html>
